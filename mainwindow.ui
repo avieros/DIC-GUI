@@ -16,10 +16,17 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="2" colspan="7">
-     <widget class="QComboBox" name="driveLetter"/>
+     <widget class="QComboBox" name="driveLetter">
+      <property name="toolTip">
+       <string>Which optical disc drive you want to dump from.</string>
+      </property>
+     </widget>
     </item>
     <item row="8" column="1" colspan="8">
      <widget class="QCheckBox" name="zipFiles">
+      <property name="toolTip">
+       <string>Zip all the files relevant for logging the dump's properties.</string>
+      </property>
       <property name="text">
        <string>Zip log files when finished</string>
       </property>
@@ -47,6 +54,9 @@
     </item>
     <item row="0" column="1" alignment="Qt::AlignLeft">
      <widget class="QLabel" name="labelOutputFileName">
+      <property name="toolTip">
+       <string>The name of the dump's files.</string>
+      </property>
       <property name="text">
        <string>Output File Name</string>
       </property>
@@ -54,6 +64,9 @@
     </item>
     <item row="6" column="1">
      <widget class="QLabel" name="labelDiscType">
+      <property name="toolTip">
+       <string>Type of disc about you want to dump.</string>
+      </property>
       <property name="text">
        <string>Disc Type</string>
       </property>
@@ -61,6 +74,9 @@
     </item>
     <item row="1" column="1">
      <widget class="QLabel" name="labelOutputDirectory">
+      <property name="toolTip">
+       <string>The directory the dump files will be put in.</string>
+      </property>
       <property name="text">
        <string>Output Directory</string>
       </property>
@@ -68,6 +84,9 @@
     </item>
     <item row="4" column="4">
      <widget class="QRadioButton" name="rb_speed16">
+      <property name="toolTip">
+       <string>Select which speed you want to dump the disc at.</string>
+      </property>
       <property name="text">
        <string>16</string>
       </property>
@@ -75,19 +94,33 @@
     </item>
     <item row="4" column="2">
      <widget class="QRadioButton" name="rb_speed4">
+      <property name="toolTip">
+       <string>Select which speed you want to dump the disc at.</string>
+      </property>
       <property name="text">
        <string>4</string>
       </property>
      </widget>
     </item>
     <item row="1" column="2" colspan="6">
-     <widget class="QLineEdit" name="outputDirectory"/>
+     <widget class="QLineEdit" name="outputDirectory">
+      <property name="toolTip">
+       <string>The directory the dump files will be put in.</string>
+      </property>
+     </widget>
     </item>
     <item row="10" column="1" colspan="8">
-     <widget class="QPlainTextEdit" name="console"/>
+     <widget class="QPlainTextEdit" name="console">
+      <property name="toolTip">
+       <string>Console output from DiscImageCreator.</string>
+      </property>
+     </widget>
     </item>
     <item row="9" column="7" colspan="2">
      <widget class="QPushButton" name="start">
+      <property name="toolTip">
+       <string>Start dumping!</string>
+      </property>
       <property name="text">
        <string>Start</string>
       </property>
@@ -95,6 +128,9 @@
     </item>
     <item row="3" column="1">
      <widget class="QLabel" name="labelDrive">
+      <property name="toolTip">
+       <string>Which optical disc drive you want to dump from.</string>
+      </property>
       <property name="text">
        <string>Drive</string>
       </property>
@@ -102,16 +138,26 @@
     </item>
     <item row="1" column="8">
      <widget class="QPushButton" name="browseOutputDir">
+      <property name="toolTip">
+       <string>Browse</string>
+      </property>
       <property name="text">
        <string>Browse</string>
       </property>
      </widget>
     </item>
     <item row="6" column="2" colspan="7">
-     <widget class="QComboBox" name="discType"/>
+     <widget class="QComboBox" name="discType">
+      <property name="toolTip">
+       <string>Type of disc about you want to dump.</string>
+      </property>
+     </widget>
     </item>
     <item row="4" column="1">
      <widget class="QLabel" name="labelDriveSpeed">
+      <property name="toolTip">
+       <string>Select which speed you want to dump the disc at.</string>
+      </property>
       <property name="text">
        <string>Drive Speed</string>
       </property>
@@ -126,6 +172,9 @@
     </item>
     <item row="4" column="3">
      <widget class="QRadioButton" name="rb_speed8">
+      <property name="toolTip">
+       <string>Select which speed you want to dump the disc at.</string>
+      </property>
       <property name="text">
        <string>8</string>
       </property>
@@ -133,16 +182,26 @@
     </item>
     <item row="4" column="5">
      <widget class="QRadioButton" name="rb_speed48">
+      <property name="toolTip">
+       <string>Select which speed you want to dump the disc at.</string>
+      </property>
       <property name="text">
        <string>48</string>
       </property>
      </widget>
     </item>
     <item row="0" column="2" colspan="7">
-     <widget class="QLineEdit" name="outputFileName"/>
+     <widget class="QLineEdit" name="outputFileName">
+      <property name="toolTip">
+       <string>The name of the dump's files.</string>
+      </property>
+     </widget>
     </item>
     <item row="4" column="6">
      <widget class="QRadioButton" name="rb_speedcustom">
+      <property name="toolTip">
+       <string>Select which speed you want to dump the disc at.</string>
+      </property>
       <property name="text">
        <string>Custom...</string>
       </property>
