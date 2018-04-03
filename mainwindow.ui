@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>648</width>
+    <height>365</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="3" column="2" colspan="7">
+     <widget class="QComboBox" name="driveLetter"/>
+    </item>
+    <item row="8" column="1" colspan="8">
+     <widget class="QCheckBox" name="zipFiles">
+      <property name="text">
+       <string>Zip log files when finished</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1" colspan="8">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="1" alignment="Qt::AlignLeft">
+     <widget class="QLabel" name="labelOutputFileName">
+      <property name="text">
+       <string>Output File Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLabel" name="labelDiscType">
+      <property name="text">
+       <string>Disc Type</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="labelOutputDirectory">
+      <property name="text">
+       <string>Output Directory</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="4">
+     <widget class="QRadioButton" name="rb_speed16">
+      <property name="text">
+       <string>16</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QRadioButton" name="rb_speed4">
+      <property name="text">
+       <string>4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2" colspan="6">
+     <widget class="QLineEdit" name="outputDirectory"/>
+    </item>
+    <item row="10" column="1" colspan="8">
+     <widget class="QPlainTextEdit" name="console"/>
+    </item>
+    <item row="9" column="7" colspan="2">
+     <widget class="QPushButton" name="start">
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="labelDrive">
+      <property name="text">
+       <string>Drive</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="8">
+     <widget class="QPushButton" name="browseOutputDir">
+      <property name="text">
+       <string>Browse</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2" colspan="7">
+     <widget class="QComboBox" name="discType"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLabel" name="labelDriveSpeed">
+      <property name="text">
+       <string>Drive Speed</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1" colspan="8">
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QRadioButton" name="rb_speed8">
+      <property name="text">
+       <string>8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="5">
+     <widget class="QRadioButton" name="rb_speed48">
+      <property name="text">
+       <string>48</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2" colspan="7">
+     <widget class="QLineEdit" name="outputFileName"/>
+    </item>
+    <item row="4" column="6">
+     <widget class="QRadioButton" name="rb_speedcustom">
+      <property name="text">
+       <string>Custom...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="7" colspan="2">
+     <widget class="QLineEdit" name="customDriveSpeed">
+      <property name="toolTip">
+       <string>Enter a custom disc read speed.</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
