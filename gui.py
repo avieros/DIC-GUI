@@ -24,7 +24,7 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 class DicGui(QtWidgets.QMainWindow, Ui_MainWindow):
     no_drives = "No optical drives found"
 
-    def __init__(self):
+    def __init__(self, app):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
@@ -33,7 +33,9 @@ class DicGui(QtWidgets.QMainWindow, Ui_MainWindow):
         self.rb_custom.toggled.connect(lambda: self.custom_drive_speed_status(self.rb_custom))
         self.pb_browseDir.clicked.connect(self.browse_directory)
         self.cb_discType.addItems(disc_profiles)
-        self.pb_start.clicked.connect(lambda: read_disc(self, disc_profiles))
+        self.pb_start.clicked.connect(lambda: read_disc(self, disc_profiles, app))
+        # TODO - Add cancel button
+        # TODO - Add "new disc info" dialog - easily copyable data
 
     def available_drives(self):
         c = wmi.WMI()
@@ -57,7 +59,7 @@ class DicGui(QtWidgets.QMainWindow, Ui_MainWindow):
         if directory is not "":
             self.le_dir.setText(directory)
 
-    def lock_input(self, state=False):
+    def lock_input(self, state):
         state = not state
         self.le_fileName.setEnabled(state)
         self.le_dir.setEnabled(state)
@@ -72,3 +74,5 @@ class DicGui(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.rb_custom.isChecked():
             self.le_customDriveSpeed.setEnabled(state)
         self.zipFiles.setEnabled(state)
+        self.pt_console.setEnabled(state)
+        self.pb_start.setEnabled(state)

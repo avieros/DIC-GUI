@@ -12,25 +12,51 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from os import path, listdir
+from PyQt5.QtGui import QTextCursor
 import subprocess
 import zipfile
 
 
-def read_disc(gui, disc_profiles):
+def read_disc(gui, disc_profiles, app):
     gui.statusBar.showMessage("")
     cmd = assemble_commandline(gui, disc_profiles)
     if cmd is not None:
         gui.lock_input(True)
+        gui.pt_console.clear()
+        app.processEvents()
         # TODO - Run pre-dump programs
-        p = subprocess.Popen(cmd)#, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        # TODO - Print console output
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        buf = bytearray()
+        while True:
+            c = p.stdout.read(1)
+            if c == b"" and p.poll() is not None:
+                break
+            if c == b"\r":
+                n = p.stdout.read(1)
+                if n == b"\n":
+                    gui.pt_console.appendPlainText(str(buf.decode('UTF-8')))
+                    app.processEvents()
+                    buf = bytearray()
+                else:
+                    cursor = gui.pt_console.textCursor()
+                    cursor.select(QTextCursor.LineUnderCursor)
+                    cursor.removeSelectedText()
+                    gui.pt_console.insertPlainText(str(buf.decode('UTF-8')))
+                    app.processEvents()
+                    buf = bytearray()
+                    buf += n
+            else:
+                buf += c
+        if p.returncode != 0:
+            gui.statusBar.showMessage("Reading image failed! Please read DIC output.")
         # TODO - Run post-dump programs
-        # zip_logs(cmd[4])
+        if gui.zipFiles.isChecked() and p.returncode == 0:
+            zip_logs(path.dirname(cmd[3]))
     gui.lock_input(False)
 
 
 def assemble_commandline(gui, disc_profiles):
-    # Check for iscImageCreator
+    # Check for DiscImageCreator
     if path.isfile("Release_ANSI\DiscImageCreator.exe"):
         cmd = [path.abspath("Release_ANSI\DiscImageCreator.exe")]
     else:
@@ -120,7 +146,7 @@ def drive_speed(gui):
 
 
 def zip_logs(working_dir):
-    extensions = ['.log']  # TODO - Add all types
+    extensions = ['.c2', '.ccd', '.cue', '.dat', '.sub', '.txt']  # TODO - Add all types
     output = path.join(working_dir, 'logs.zip')
     all_files = listdir(working_dir)
     log_files = []
@@ -128,7 +154,9 @@ def zip_logs(working_dir):
     for file in all_files:
         if file.endswith(tuple(extensions)):
             log_files.append(file)
-    with zipfile.ZipFile(output, 'w') as logs:
+    logs = zipfile.ZipFile(output, compression=zipfile.ZIP_DEFLATED, mode='w')
+    if log_files:
         for file in log_files:
-            logs.write(file)
+            logs.write(path.join(working_dir, file), arcname=file)
+        logs.close()
     return output
