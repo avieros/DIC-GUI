@@ -1,1 +1,1 @@
-This is a very simple GUI for DiscImageCreator. Currently, it is non-functional, contains no safety-checks and is a WIP.
+This is a very simple GUI for DiscImageCreator. Currently, it is kinda functional, contains no safety-checks and is a WIP.
