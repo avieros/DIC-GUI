@@ -15,6 +15,11 @@ from os import path, listdir
 from PyQt5.QtGui import QTextCursor
 import subprocess
 import zipfile
+import requests
+import zlib
+from bs4 import BeautifulSoup
+
+
 
 
 def read_disc(gui, disc_profiles, app):
@@ -50,9 +55,30 @@ def read_disc(gui, disc_profiles, app):
         if p.returncode != 0:
             gui.statusBar.showMessage("Reading image failed! Please read DIC output.")
         # TODO - Run post-dump programs
+        crcFileName = gui.le_fileName.text() + '.bin'
+        buffersize = 65536
+        with open(crcFileName, 'rb') as afile:
+            buffr = afile.read(buffersize)
+            crcvalue = 0
+        while len(buffr) > 0:
+                crcvalue = zlib.crc32(buffr, crcvalue)
+                buffr = afile.read(buffersize)
+        crc = (format(crcvalue & 0xFFFFFFFF, '08x'))
+        #print (crc)
+        url1 = "http://redump.org/discs/quicksearch/"
+        r = requests.get(url1 + crc)
+        r.encoding = 'utf-8'
+        soup = BeautifulSoup(r.text, 'html.parser')
+        soup2 = soup.find_all('title')
+        soup3 = [e.get_text() for e in soup2]
+        if str('Discs') in str(soup3):
+            gui.statusBar.showMessage("This disc is a new entry to Redump DB!")
+        else:
+            gui.statusBar.showMessage("This disc can be used to verify a Redump DB entry")
+        # get crc of filename
         if gui.zipFiles.isChecked() and p.returncode == 0:
-            zip_logs(path.dirname(cmd[3]))
-    gui.lock_input(False)
+           zip_logs(path.dirname(cmd[3]))
+        gui.lock_input(False)
 
 
 def assemble_commandline(gui, disc_profiles):
@@ -108,7 +134,7 @@ def file_name(gui):
             return gui.le_fileName.text() + '.bin'
         else:
             return gui.le_fileName.text()
-    gui.statusBar.showMessage("Output file name is malformed. Aborting!")
+    gui.statusBar.showMessage("Output file name not set. Aborting!")
     return None
 
 
@@ -117,7 +143,7 @@ def directory(gui):
         expanded_path = path.expanduser(gui.le_dir.text())
         if path.isdir(expanded_path):
             return expanded_path
-    gui.statusBar.showMessage("Output directory is malformed. Aborting!")
+    gui.statusBar.showMessage("Output directory not set. Aborting!")
     return None
 
 
