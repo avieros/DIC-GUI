@@ -57,18 +57,25 @@ def read_disc(gui, disc_profiles, app):
             gui.statusBar.showMessage("Reading image failed! Please read DIC output.")
         # TODO - Run post-dump programs
         # this next bit only works if single track - need some code here to find out if FILENAME.BIN or FILENAME (Track 01).bin
-        for file in os.listdir(directory(gui)):
-        if fnmatch.fnmatch(file, '*Track 02*.bin'):
-        crcFileName = gui.le_fileName.text() + ' Track 01' + '.bin'
-        else crcFileName = gui.le_fileName.text() + '.bin'
+        dr = directory(gui)
+        fn = file_name(gui)
+        crcFileCheck1 = (path.normpath(path.abspath(path.join(dr, fn))))
+        print (crcFileCheck1)
+        for file in crcFileCheck1:
+            if fnmatch.fnmatch(file, '*Track 02*.bin'):
+                print (crcFileName)
+        # here split string to get it to filecheck crc on single tracks?    
+        else: crcFileName = crcFileCheck1
         
+        gui.statusBar.showMessage(crcFileName)
+
         buffersize = 65536
-        with open(crcFileName, 'rb') as afile:
-            buffr = afile.read(buffersize)
-            crcvalue = 0
-        while len(buffr) > 0:
-                crcvalue = zlib.crc32(buffr, crcvalue)
-                buffr = afile.read(buffersize)
+        with open(crcFileCheck1, 'rb') as Compute_Crc_File:
+                buffr = Compute_Crc_File.read(buffersize)
+                crcvalue = 0
+                while len(buffr) > 0:
+                    crcvalue = zlib.crc32(buffr, crcvalue)
+                    buffr = Compute_Crc_File.read(buffersize)
         crc = (format(crcvalue & 0xFFFFFFFF, '08x'))
         #print (crc)
         url1 = "http://redump.org/discs/quicksearch/"
@@ -77,15 +84,16 @@ def read_disc(gui, disc_profiles, app):
         soup = BeautifulSoup(r.text, 'html.parser')
         soup2 = soup.find_all('title')
         soup3 = [e.get_text() for e in soup2]
+        NewCRC = "This disc is a new entry to Redump DB! CRC =" + " " + crc + " " + "submit here: "
+        OldCRC = "This disc an be used to verify a Redump DB entry. CRC =" + " " + crc
         if str('Discs') in str(soup3):
-            gui.statusBar.showMessage("This disc is a new entry to Redump DB!")
+            gui.statusBar.showMessage(NewCRC)
         else:
-            gui.statusBar.showMessage("This disc can be used to verify a Redump DB entry")
+            gui.statusBar.showMessage(OldCRC)
         # get crc of filename
         if gui.zipFiles.isChecked() and p.returncode == 0:
-           zip_logs(path.dirname(cmd[3]))
+            zip_logs(path.dirname(cmd[3]))
         gui.lock_input(False)
-
 
 def assemble_commandline(gui, disc_profiles):
     # Check for DiscImageCreator

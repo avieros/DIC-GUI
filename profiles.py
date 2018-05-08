@@ -26,6 +26,7 @@ class PlayStation(GenericDisc):
 
 
 disc_profiles = {'Audio CD':                 GenericDisc('Audio CD',                 'cd',  ['/c2']),
+                 'Any CD Drive (testing)':   GenericDisc('Generic CD',               'data',  ['0', '1000']),
                  'Sony PlayStation':         PlayStation('Sony PlayStation',         'cd',  ['/c2', '/nl']),
                  'Sony PlayStation 2 (CD)':  GenericDisc('Sony PlayStation 2 (CD)',  'cd',  ['/c2']),
                  'Sony PlayStation 2 (DVD)': GenericDisc('Sony PlayStation 2 (DVD)', 'dvd', [])}
