@@ -21,10 +21,8 @@ import zlib
 from bs4 import BeautifulSoup
 
 
-
-
 def read_disc(gui, disc_profiles, app):
-    gui.statusBar.showMessage("")
+    gui.statusBar.showMessage("Welcome to DiscImageCreator GUI v0.01")
     cmd = assemble_commandline(gui, disc_profiles)
     if cmd is not None:
         gui.lock_input(True)

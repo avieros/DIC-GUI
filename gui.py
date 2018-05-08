@@ -20,8 +20,9 @@ import wmi
 qtCreatorFile = "mainwindow.ui"
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
-
 class DicGui(QtWidgets.QMainWindow, Ui_MainWindow):
+    
+    
     no_drives = "No optical drives found"
 
     def __init__(self, app):
@@ -37,6 +38,7 @@ class DicGui(QtWidgets.QMainWindow, Ui_MainWindow):
         # TODO - Add cancel button
         # TODO - Add "new disc info" dialog - easily copyable data
 
+    
     def available_drives(self):
         c = wmi.WMI()
         drives = []

@@ -235,7 +235,7 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
+ <layoutdefault spacing="3" margin="3"/>
  <resources/>
  <connections/>
 </ui>
