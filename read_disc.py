@@ -14,6 +14,7 @@
 from os import path, listdir
 from PyQt5.QtGui import QTextCursor
 import subprocess
+import fnmatch
 import zipfile
 import requests
 import zlib
@@ -55,7 +56,12 @@ def read_disc(gui, disc_profiles, app):
         if p.returncode != 0:
             gui.statusBar.showMessage("Reading image failed! Please read DIC output.")
         # TODO - Run post-dump programs
-        crcFileName = gui.le_fileName.text() + '.bin'
+        # this next bit only works if single track - need some code here to find out if FILENAME.BIN or FILENAME (Track 01).bin
+        for file in os.listdir(directory(gui)):
+        if fnmatch.fnmatch(file, '*Track 02*.bin'):
+        crcFileName = gui.le_fileName.text() + ' Track 01' + '.bin'
+        else crcFileName = gui.le_fileName.text() + '.bin'
+        
         buffersize = 65536
         with open(crcFileName, 'rb') as afile:
             buffr = afile.read(buffersize)
